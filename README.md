@@ -57,4 +57,4 @@ The dual-model's inputs and outputs are doubled compared to the original MSCN. W
 In directory [model](./model), we provide four trained networks with hidden size as 128 and 2048 for both single model and dual model settings.
 ## Verification Instructions
 Automatically generated specifications that may include multiple instances in one vnnlib file can be found in directory [spec](./spec). 
-Our benchmark provides pairs of (i) models for learned index and learned cardinality, (ii) corresponding specifications, (iii) corresponding timeout to cover varied difficulties for verification tools. You can find these information in nn4sys_sys.csv.
+Our benchmark provides pairs of (i) models for learned index and learned cardinality, (ii) corresponding specifications, (iii) corresponding timeout to cover varied difficulties for verification tools. You can find these information in [nn4sys.csv](./nn4sys.csv).
