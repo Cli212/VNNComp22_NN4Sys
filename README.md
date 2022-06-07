@@ -5,7 +5,7 @@ We propose a new set of benchmarks for neural network verification for systems (
 
 ### Background
 Below we introduce the first learned index using neural networks, named Recursive Model Index (RMI), which is depicted as:
-<div align=center><img width="400" height="300" src="./imgs/RMI.pdf"/></div> 
+<div align=center><img width="400" height="300" src="./imgs/RMI.png"/></div> 
 RMI has multiple stages and each stage has one or multiple models. During a lookup, RMI picks one model in each stage to run; models in upper stages (starting from stage 1) decide the model in the next stage; and a final stage model predicts the data position for the queried key.
 
 ### Specifications
