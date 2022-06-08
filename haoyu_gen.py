@@ -114,6 +114,7 @@ def gene_spec():
     label_range = open('src/mscn/mscn_resources/label_range.txt').read().splitlines()
     label_range = [(int(i.split(',')[0]), int(i.split(',')[1])) for i in label_range]
     time_dict = np.load('src/mscn/mscn_resources/time_dict.npy', allow_pickle=True).item()
+    time_dict_single = np.load('src/mscn/mscn_resources/time_dict_single.npy', allow_pickle=True).item()
 
     csv_data = []
     dir_path = 'spec'
@@ -141,7 +142,7 @@ def gene_spec():
                                    safe=bool(sf))
                 csv_data.append([f'model/mscn_{model}d.onnx',
                          f'{dir_path.split("/")[-1]}/cardinality_0_{size}_{model}.vnnlib',
-                         20+math.ceil(size*3/5000)*10])
+                         max(time_dict_single['single'][size]//2, 20) if model=='128' else time_dict_single['single'][size]])
         # generate dual instances
         dual_difficulties = [1]
         dual_difficulties.extend([(i + 1) * 60 for i in range(15)])

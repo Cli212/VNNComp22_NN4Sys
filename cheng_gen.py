@@ -129,8 +129,8 @@ def main(seed):
         difficulties.append(1000 + i*2000)  # max: 9700
 
     # (c) hard [10K, 144K] (50 instances)
-    for i in range(5):
-        difficulties.append(10000 + i*25000) # max: 147200
+    for i in range(2):
+        difficulties.append(10000 + i*50000) # max: 147200
 
     return gen_spec(specs, difficulties)
 
