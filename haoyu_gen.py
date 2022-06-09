@@ -140,8 +140,8 @@ def gene_spec():
                     continue
                 trans_multi_vnnlib(f'{dir_path}/cardinality_0_{size}_{model}.vnnlib', [queries[i] for i in chosen_index], [dopple_queries[i] for i in chosen_index], [label_range[i] for i in chosen_index], 'scale',
                                    safe=bool(sf))
-                csv_data.append([f'model/mscn_{model}d.onnx',
-                         f'{dir_path.split("/")[-1]}/cardinality_0_{size}_{model}.vnnlib',
+                csv_data.append([f'mscn_{model}d.onnx',
+                         f'cardinality_0_{size}_{model}.vnnlib',
                          max(time_dict_single['single'][size]//2, 20) if model=='128' else time_dict_single['single'][size]])
         # generate dual instances
         dual_difficulties = [1]
@@ -156,8 +156,8 @@ def gene_spec():
                 except:
                     continue
                 trans_multi_dual_vnnlib(f'{dir_path}/cardinality_1_{size}_{model}_dual.vnnlib', [dual_queries[i] for i in chosen_index],'scale', bool(sf))
-                csv_data.append([f'model/mscn_{model}d_dual.onnx',
-                                 f'{dir_path.split("/")[-1]}/cardinality_1_{size}_{model}_dual.vnnlib',
+                csv_data.append([f'mscn_{model}d_dual.onnx',
+                                 f'cardinality_1_{size}_{model}_dual.vnnlib',
                                  time_dict[int(model)][size]])
     return csv_data
 

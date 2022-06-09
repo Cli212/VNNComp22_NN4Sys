@@ -83,8 +83,8 @@ def gen_spec(specs, difficulties):
 
         fname = ftemplate % num
         write_spec(fname, chosen_ones)
-        csv_data.append(['model/lindex.onnx', fname, 20+math.ceil(num*3/num_specs)*10])
-        csv_data.append(['model/lindex_deep.onnx', fname, 20+math.ceil(num*3/num_specs)*10])
+        csv_data.append(['lindex.onnx', fname.split('/')[-1], 20+math.ceil(num*3/num_specs)*10])
+        csv_data.append(['lindex_deep.onnx', fname.split('/')[-1], 20+math.ceil(num*3/num_specs)*10])
         print(f"[DONE] generate {fname}")
         all_names.append(fname)
 
