@@ -38,6 +38,7 @@ def trans_multi_dual_vnnlib(spec_path, queries, testset, safe=True):
         f.write("\n")
         for i in range(all_tensor[0].shape[0]*2):
             f.write(f"(declare-const X_{i} Real)\n")
+        f.write(f"(declare-const Y_0 Real)\n")
         if safe:
             f.write("\n(assert (or \n")
         else:
@@ -79,6 +80,7 @@ def trans_multi_vnnlib(spec_path, queries, doppel_queries, label_range, testset,
         f.write("\n")
         for i in range(all_tensor[0].shape[0]):
             f.write(f"(declare-const X_{i} Real)\n")
+        f.write(f"(declare-const Y_0 Real)\n")
         if safe:
             f.write("\n(assert (or \n")
         else:
