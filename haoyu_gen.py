@@ -48,15 +48,15 @@ def trans_multi_dual_vnnlib(spec_path, queries, testset, safe=True):
             f.write("(and ")
             for i, j in enumerate(all_tensor[tt]):
                 if i in flex_index:
-                    f.write(f"(>= X_{i} {min(j + 0.0001, 1.0)}) (<= X_{i} {1.0}) ")
+                    f.write(f"(>= X_{i} {round(min(j.item() + 0.0001, 1.0), 16)}) (<= X_{i} {1.0}) ")
                 else:
-                    f.write(f"(>= X_{i} {j}) (<= X_{i} {j}) ")
+                    f.write(f"(>= X_{i} {round(j.item(), 16)}) (<= X_{i} {round(j.item(), 16)}) ")
 
             for i, j in enumerate(all_tensor[tt]):
                 if i in flex_index:
-                    f.write(f"(>= X_{i + 154} {0.0}) (<= X_{i + 154} {max(0.0, j - 0.0001)}) ")
+                    f.write(f"(>= X_{i + 154} {0.0}) (<= X_{i + 154} {round(max(0.0, j.item() - 0.0001), 16)}) ")
                 else:
-                    f.write(f"(>= X_{i + 154} {j}) (<= X_{i + 154} {j}) ")
+                    f.write(f"(>= X_{i + 154} {round(j.item(), 16)}) (<= X_{i + 154} {round(j.item(), 16)}) ")
             if flag == 9:
                 f.write("(>= Y_0 1e-5))\n")
             elif flag == 11:
@@ -97,12 +97,12 @@ def trans_multi_vnnlib(spec_path, queries, doppel_queries, label_range, testset,
                     continue
                 f.write("(and ")
                 for i, (j, k) in enumerate(zip(tensor, dopple_tensor)):
-                    f.write(f"(>= X_{i} {min(j, k)}) (<= X_{i} {max(j, k)}) ")
+                    f.write(f"(>= X_{i} {round(min(j, k).item(), 16)}) (<= X_{i} {round(max(j, k).item(), 16)}) ")
 
                 if ri == 0:
-                    f.write(f"(<= Y_0 {normalize_labels([r], 0.0, 19.94772801931604)[0][0]}))\n")
+                    f.write(f"(<= Y_0 {round(normalize_labels([r], 0.0, 19.94772801931604)[0][0], 16)}))\n")
                 else:
-                    f.write(f"(>= Y_0 {normalize_labels([r], 0.0, 19.94772801931604)[0][0]}))\n")
+                    f.write(f"(>= Y_0 {round(normalize_labels([r], 0.0, 19.94772801931604)[0][0], 16)}))\n")
         if safe:
             f.write("))\n")
         else:
@@ -142,8 +142,8 @@ def gene_spec():
                     continue
                 trans_multi_vnnlib(f'{dir_path}/cardinality_0_{size}_{model}.vnnlib', [queries[i] for i in chosen_index], [dopple_queries[i] for i in chosen_index], [label_range[i] for i in chosen_index], 'scale',
                                    safe=bool(sf))
-                csv_data.append([f'mscn_{model}d.onnx',
-                         f'cardinality_0_{size}_{model}.vnnlib',
+                csv_data.append([f'model/mscn_{model}d.onnx',
+                         f'spec/cardinality_0_{size}_{model}.vnnlib',
                          max(time_dict_single['single'][size]//2, 20) if model=='128' else time_dict_single['single'][size]])
         # generate dual instances
         dual_difficulties = [1]
@@ -158,8 +158,8 @@ def gene_spec():
                 except:
                     continue
                 trans_multi_dual_vnnlib(f'{dir_path}/cardinality_1_{size}_{model}_dual.vnnlib', [dual_queries[i] for i in chosen_index],'scale', bool(sf))
-                csv_data.append([f'mscn_{model}d_dual.onnx',
-                                 f'cardinality_1_{size}_{model}_dual.vnnlib',
+                csv_data.append([f'model/mscn_{model}d_dual.onnx',
+                                 f'spec/cardinality_1_{size}_{model}_dual.vnnlib',
                                  time_dict[int(model)][size]])
     return csv_data
 

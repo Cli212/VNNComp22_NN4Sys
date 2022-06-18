@@ -37,8 +37,8 @@ def write_spec(path, spec_set):
     contents = ["(declare-const X_0 Real)",
                 "(declare-const Y_0 Real)",
                 "(assert (or" ]
-    lower_template = "  (and (>= X_0 %.60g) (<= X_0 %.60g) (<= Y_0 %.60g))"
-    upper_template = "  (and (>= X_0 %.60g) (<= X_0 %.60g) (>= Y_0 %.60g))"
+    lower_template = "  (and (>= X_0 %.16f) (<= X_0 %.16f) (<= Y_0 %.16f))"
+    upper_template = "  (and (>= X_0 %.16f) (<= X_0 %.16f) (>= Y_0 %.16f))"
 
     for spec in spec_set:
         x_lb, x_ub, y_lb, y_ub = spec
@@ -54,8 +54,8 @@ def write_uspec(path, spec_set):
     contents = ["(declare-const X_0 Real)",
                 "(declare-const Y_0 Real)"
                ]
-    lower_template = "assert(and (>= X_0 %.60g) (<= X_0 %.60g) (<= Y_0 %.60g))"
-    upper_template = "assert(and (>= X_0 %.60g) (<= X_0 %.60g) (>= Y_0 %.60g))"
+    lower_template = "assert(and (>= X_0 %.16f) (<= X_0 %.16f) (<= Y_0 %.16f))"
+    upper_template = "assert(and (>= X_0 %.16f) (<= X_0 %.16f) (>= Y_0 %.16f))"
 
     for spec in spec_set:
         x_lb, x_ub, y_lb, y_ub = spec
@@ -83,8 +83,8 @@ def gen_spec(specs, difficulties):
 
         fname = ftemplate % num
         write_spec(fname, chosen_ones)
-        csv_data.append(['lindex.onnx', fname.split('/')[-1], 20+math.ceil(num*3/num_specs)*10])
-        csv_data.append(['lindex_deep.onnx', fname.split('/')[-1], 20+math.ceil(num*3/num_specs)*10])
+        csv_data.append(['model/lindex.onnx', fname, 20+math.ceil(num*3/num_specs)*10])
+        csv_data.append(['model/lindex_deep.onnx', fname, 20+math.ceil(num*3/num_specs)*10])
         print(f"[DONE] generate {fname}")
         all_names.append(fname)
 
